@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+  "scripts":{
     "test": "mocha",
-    "dev": "next",
-    "start": "next start",
+    "dev": "next build && node server.js",
     "build": "next build"
   },
-  "author": "",
+  "author":"",
   "license": "ISC",
   "dependencies": {
     "fs-extra": "^5.0.0",

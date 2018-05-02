@@ -10,7 +10,7 @@ contract CampaignFactory{
   called its parameter is minimum amount of donation the other users can provide for
   a project. "msg.sender" implies the creator of the contract's address. */
     function createCampaign(uint minAmount) public{
-        address ContractAddress = new Campaign(msg.sender,minAmount);
+        address ContractAddress = new Campaign(msg.sender,minAmount,description);
         deployedContracts.push(ContractAddress);
     }
 /* Function getDeployedContracts() simply returns the array of deployed smart contracts */
@@ -77,5 +77,17 @@ contract Campaign{
         _;
 /* If above condition is met, the code in the function with restricted
 keyword will be executed. The "_" is neccesary for a modifier. */
+    }
+    function getProjectSummary() public view returns(uint,uint,address,uint,uint){
+      return(
+            address(this).balance,
+            minDonation,
+            manager,
+            requests.length,
+            donatorsCount
+          );
+    }
+    function getRequestsCount() public view returns(uint){
+        return requests.length;
     }
 }

@@ -3,6 +3,7 @@ import Layout from "../../Components/Layout";
 import {Form,Button,Container,Input, Message} from "semantic-ui-react";
 import factory from "../../ethereum/createfactory";
 import web3 from "../../ethereum/web3"
+import {Router} from "../../routes";
 class NewProject extends Component{
   state ={
     amount:"",
@@ -16,7 +17,9 @@ handleClick = async (event) => {
     const accounts= await web3.eth.getAccounts();
     await factory.methods.createCampaign(this.state.amount)
       .send({from:accounts[0]});
-  } catch (e) {
+    this.setState({errorMsg:""});
+    Router.pushRoute("/");
+  }catch (e) {
     if(e.message.length > 500)
       this.setState({errorMsg: "Unable to provide Gas"});
     else
@@ -32,14 +35,13 @@ handleClick = async (event) => {
         <Container>
         <Form error = {!!this.state.errorMsg} onSubmit = {this.handleClick} style = {{marginTop: "10px"}} >
           <Form.Field>
-            <label> Donate Ether</label>
+            <label> Enter Minimum acceptable Donation amount</label>
             <Input value = {this.state.amount} label = {{basic:true, content: "Wei"}} labelPosition= "right"
                                            placeholder = "Enter Amount"
               onChange = {(event) => {this.setState({amount:event.target.value})}} />
           </Form.Field>
-          <Button loading = {this.state.loading} style = {{marginTop: "10px"}} content = "Donate" primary>
+          <Button loading = {this.state.loading} style = {{marginTop: "10px"}} content = "Create" primary>
           </Button>
-
           <Message error header = "Cannot Create a Project"
                   list = {[this.state.errorMsg]} />
         </Form>
