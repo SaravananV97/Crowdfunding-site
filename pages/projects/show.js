@@ -49,19 +49,23 @@ class ShowComponent extends Component{
     return(
       <Layout>
         <h2> Project Summary </h2>
-        <Grid>
+        <Grid style = {{marginLeft:"5px"}}>
+          <Grid.Row>
           <Grid.Column width = {10}>
             <Card.Group style = {{padding: "2px"}} items = {this.renderSummary()} />
-            <Link route = {`/projects/${this.props.address}/requests`}>
-              <a>
-                <Button content = "View Spending Requests" primary>
-                </Button>
-              </a>
-            </Link>
           </Grid.Column>
           <Grid.Column floated = "left" width = {5}>
             <Donate addr = {this.props.address}/>
           </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Link route = {`/projects/${this.props.address}/requests`}>
+            <a>
+              <Button content = "View Spending Requests" primary>
+              </Button>
+            </a>
+          </Link>
+        </Grid.Row>
         </Grid>
     </Layout>);
   }

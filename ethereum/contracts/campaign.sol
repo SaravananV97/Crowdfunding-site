@@ -10,7 +10,7 @@ contract CampaignFactory{
   called its parameter is minimum amount of donation the other users can provide for
   a project. "msg.sender" implies the creator of the contract's address. */
     function createCampaign(uint minAmount) public{
-        address ContractAddress = new Campaign(msg.sender,minAmount,description);
+        address ContractAddress = new Campaign(msg.sender,minAmount);
         deployedContracts.push(ContractAddress);
     }
 /* Function getDeployedContracts() simply returns the array of deployed smart contracts */
